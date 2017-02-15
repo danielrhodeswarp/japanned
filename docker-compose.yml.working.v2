@@ -1,0 +1,40 @@
+#daniel version: 2
+version: '2'
+services:
+  danielrhodeswarp-emberjs-app-server:
+    #poorly doc'd, but (just) 'build' should be a *folder* containing a "Dockerfile"
+    build: ./docker_config/emberjs_app_server
+    ports:
+        #ember server
+     - "4200:4200"
+
+        #live reload
+     - "49152:49152"
+
+    volumes:
+    - ./ember_project:/ember_project
+    #links:
+    #- danielrhodeswarp-lamp-headless-mariadb
+  danielrhodeswarp-emberjs-test-server:
+    #poorly doc'd, but (just) 'build' should be a *folder* containing a "Dockerfile"
+    build: ./docker_config/emberjs_test_server
+    ports:
+        #test 'em scripts'
+     - "7357:7357"
+    volumes:
+    - ./ember_project:/ember_project
+    #links:
+    #- danielrhodeswarp-lamp-headless-mariadb
+  
+  #danielrhodeswarp-lamp-headless-mariadb:
+  #  #    build: ./docker_config/mariadb
+  #  image: mariadb:latest 
+  #  environment:
+  #  - MYSQL_ROOT_PASSWORD=secret
+  #  #- MYSQL_DATABASE=blah
+  #  #- MYSQL_USER=blah
+  #  #- MYSQL_PASSWORD=blah
+  #  #- MYSQL_ALLOW_EMPTY_PASSWORD=blah
+  #  #- MYSQL_ONETIME_PASSWORD=blah
+  #  ports:
+  #  - "3306:3306"
